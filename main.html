@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <title>Note-tify</title>
       <link rel="stylesheet" href="reset.css">
-      <link rel="stylesheet" href="main_styling.min.css">
+      <link rel="stylesheet" href="main_styling.css">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -54,19 +54,12 @@
 
                   <div id="task_list_today"> <!--list of tasks-->
 
-                     <div class="task_item">
-                        <span class="circle"><i class="fa-regular fa-circle"></i></span>
+                     <!-- <div class="task_item">
+                        <span class="circle"></span>
                         <span class="title">feed the chonker</span>
                         <span class="date">Mar 19</span>
-                     </div>
+                     </div> -->
 
-                     <div class="task_item">
-                        <span class="circle"><i class="fa-regular fa-circle"></i></span>
-                        <span class="title">feed the chonker</span>
-                        <span class="date">Mar 19</span>
-                     </div>
-                     
-                     
                   </div>
                   
                   <div id="btn_newtask" class="goto_float">
@@ -102,8 +95,8 @@
                      <input type="date" id="inp_date" title="select the due date">
 
                      <label for="select-tag" class="formbuilder-select-label">Tag</label>
-                     <select name="select-tag" id="select-tag">
-                        <option value="option-1" selected="true" id="select-tag-0">Option 1</option>
+                     <select name="select-tag" id="category">
+                        <option value="option-1" id="select-tag-0">Option 1</option>
                         <option value="option-2" id="select-tag-1">Option 2</option>
                         <option value="option-3" id="select-tag-2">Option 3</option>
                      </select>
@@ -114,16 +107,20 @@
                </div>
       <!--item detail--------------------------------->
                <div id="item_detail" class="fade">
+
                   <div class="icons">
-                     <div class="edit" onclick="showDetail()"><i class="fa-regular fa-pen-to-square"></i></div>
+                     <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
                      <div class="delete"><i class="fa-regular fa-trash-can"></i></div>
                   </div>
+                  
                   <div class="title">feed the chonker</div>
                   <div class="date">Friday, March 19, 2020</div>
+                  
                   <div class="tag_group">
                      <span class="folder"><i class="fa-regular fa-folder"></i></span>
                      <span class="tag">daily</span>
                   </div>
+                  
                   <button type="submit" id="btn_complete">Mark as completed</button>
 <!---back btn-->
                   <a class="back"><i class="fa-solid fa-angle-left"></i> Go back</a>
