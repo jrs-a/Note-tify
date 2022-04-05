@@ -1,128 +1,81 @@
-//1:37 am changes
-
+//-------------------------------fetch arrays from local storage = initialize array variables
 var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.getItem('Note-ify_data')):{
-   tasks: []
+   tasks: [],
+   Categories: []
 };
 
 //localStorage.clear();
-
-//console.log(data);
-
+console.log(data);
 renderTodoList();
 
-// -----------------------------Getting the date
-const months = ["January","February","March","April","May","June","July","August","September","October","November","December",];
-const week = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",];
+//--------------------------------Manually update the local storage "Note-ify"
+function dataObjectUpdated (){
+   localStorage.setItem("Note-ify_data", JSON.stringify(data));
+}
 
-const n = new Date();
-const m = n.getMonth();
-const d = n.getDate();
-const x = n.getDay();
-
-document.getElementById("date").innerHTML = `${months[m]} ${d}`;
-document.getElementById("day").innerHTML = `${week[x]}, `;
-
-// -----------------------------Show/Hide Elements
-const div_newItem = document.getElementById("new_item");
-const div_itemDetail = document.getElementById("item_detail");
-const div_newTag = document.getElementById("new_tag");
-
-$("#btn_newtask, .edit").click(function(){
-   $("#new_item").fadeIn();
-   $("#new_tag").fadeOut();
-   $("#item_detail").fadeOut();
-   div_newItem.style.display = "grid";
-   div_itemDetail.style.display = "none";
-   div_newTag.style.display = "none";
-})
-
-$(".task_item").click(function() {
-   $("#item_detail").fadeIn();
-   $("#new_tag").fadeOut();
-   $("#new_item").fadeOut();
-   div_newItem.style.display = "none";
-   div_itemDetail.style.display = "grid";
-   div_newTag.style.display = "none";
-})
-
-$("#btn_newtag").click(function() {
-   $("#new_tag").fadeIn();
-   $("#new_item").fadeOut();
-   $("#item_detail").fadeOut();
-   div_newItem.style.display = "none";
-   div_itemDetail.style.display = "none";
-   div_newTag.style.display = "grid";
-})
-
-$(".back, #btn_create, #btn_complete").click(function(){
-   document.querySelector("#anchor_home").scrollIntoView();
-   $(".fade").fadeOut();
-})
-
-$(".goto_float, .task_item").click(function(){
-   document.querySelector("#anchor_floating").scrollIntoView();
-})
-
-//for dynamically generated divs
-$("#task_list_today").on("click", ".task_item", function(){
-   document.querySelector("#anchor_floating").scrollIntoView();
-})
-
-//------------------------------Creating task
+//--------------------------------Get values from input and push to local storage
 window.addEventListener("load", () => {
-   //----getting the data from the input form
-   const form = document.querySelector("#form_newtask");
+   const form = document.querySelector("#form_newtask");          //---getting the data from the input form
    const title = document.querySelector("#inp_title");
    const dateInp = document.querySelector("#inp_date");
-         categories = document.getElementById("category").value;
-   //----adding the data to the storage
-   form.addEventListener("submit", (e) => {
+   const category = document.getElementById("category").value;
+   
+   form.addEventListener("submit", (e) => {                       //----adding the data to the storage
       e.preventDefault();
 
       const task = title.value;
       const dateValue = dateInp.value;
+      const status = false;
+      const idval = 0;
+
+      const ItemStatus = CurrentStatus(status);
+      const idValue = ItemId(idval);
 
       let dataValue = {
+         id: idValue,
          Title: task, 
          Date: dateValue,
-         Category: categories, 
+         Category: category, 
+         status: ItemStatus
       };
+
+      if (!dateValue) {
+         alert("Please input a date");
+         return;
+      }
 
       if (!task) {
          alert("Please input a task");
          return;
       }
 
-      location.reload();
-      showTasks(dataValue);
-      data.tasks.push(dataValue);
+      location.reload();                                 //reload window
+      showTasks(dataValue);                              //show divs to browser
+
+      data.tasks.push(dataValue);                        //adding to array
+      
       dataObjectUpdated();
-      document.getElementById("inp_title").value=""; //reset the value of input 
+      
+      document.getElementById("inp_title").value="";     //reset the value of inputs 
+      document.querySelector("#inp_date").value = "";
+      document.getElementById("category").value = "";
    });
 });
-//------------------------------Updating the storage "Note-tify"
-function dataObjectUpdated (){
-   localStorage.setItem("Note-ify_data", JSON.stringify(data));
-}
-//------------------------------rendering the array in the local storage
-function renderTodoList() {
-   if (!data.tasks.length) return;
 
-   for (var i = 0; i < data.tasks.length; i++) {
-      var value = data.tasks[i];
-      showTasks(value);
-   }
- }
-//------------------------------Creating divs and displaying task
-function showTasks({Title: task, Date: dataValue}) {
-   const tasks = document.querySelector("#task_list_today");//list_el
+//--------------------------------Creating divs and displaying single tasks
+function showTasks({Title: task, Date: dateValue, id: id}) {
+   const tasks = document.querySelector("#task_list_today");
 
    const task_el = document.createElement("div");
       task_el.classList.add("task_item");
 
+         const task_id = document.createElement("span");
+         task_id.classList.add("id");
+         task_id.innerHTML = id;
+         task_el.appendChild(task_id);
+
          const task_circle = document.createElement("span");
          task_circle.classList.add("circle");
-         task_el.appendChild(task_circle);
 
          const task_title = document.createElement("span");
          task_title.classList.add("title");
@@ -131,18 +84,62 @@ function showTasks({Title: task, Date: dataValue}) {
 
          const task_date = document.createElement("span");
          task_date.classList.add("date");
-         task_date.innerHTML = dataValue;
+            let dateObj = new Date(dateValue);
+            let FormattedDate = dateObj.toLocaleString("en-US", {
+               month: "long", 
+               day: "numeric",
+               year: "numeric"
+            });
+         task_date.innerHTML = FormattedDate;
          task_el.appendChild(task_date);
 
       tasks.appendChild(task_el);
 }
-//------------------------------Click task, show to details pane
-$(".task_item").click(function(){
-   title = $(this).find(".title").html();
-   date = $(this).find(".date").html();
-   console.log(title);
-   console.log(date);
 
-   $("#item_detail > .section > .title").html(title);
-   $("#item_detail > .section > .date").html(date);
+//--------------------------------Get tasks from local storage and showTasks() to browser
+function renderTodoList() {
+   if (!data.tasks.length) return;
+
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      showTasks(value);
+   }
+}
+
+
+//--------------------------------gives every task an id
+function ItemId(y){
+   for (var i = 0; i<= data.tasks.length; i++){
+      j = i + data.tasks.length
+      var y = j;
+      return y;
+   }
+}
+
+//-------------------------------CHECKS IF ITS COMPLETED    
+function CurrentStatus(x){
+   let complete = false;
+   if (x == complete){
+      return false;
+   } else {
+      return true;
+   }
+}
+
+//-------------------------------clicking the delete button
+$(".delete").click(function(){         
+   id_new = $(this).parent().parent().find(".id").html();
+
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+
+      if(value.id == id_new) {
+         data.tasks = $.grep(data.tasks, function(value) {
+            return value != data.tasks[i];
+         });
+      }
+   }
+   location.reload();
+   dataObjectUpdated();
+   //renderTodoList();
 })
