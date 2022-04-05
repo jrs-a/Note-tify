@@ -1,10 +1,4 @@
-//--------hobie 
-//TODO hobie - storage: edit and delete
-
-//--------jam
-//TODO scroll within the list 
-//TODO isotope filtering (sort by category)
-//TODO > circle > loading when create task
+//1:37 am changes
 
 var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.getItem('Note-ify_data')):{
    tasks: []
