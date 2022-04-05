@@ -1,9 +1,7 @@
 //--------hobie 
-
 //TODO hobie - storage: edit and delete
 
 //--------jam
-//TODO bind events to new divs
 //TODO scroll within the list 
 //TODO isotope filtering (sort by category)
 //TODO > circle > loading when create task
@@ -76,7 +74,7 @@ $("#task_list_today").on("click", ".task_item", function(){
    document.querySelector("#anchor_floating").scrollIntoView();
 })
 
-//--------------------------------Adding task
+//------------------------------Creating task
 window.addEventListener("load", () => {
    //----getting the data from the input form
    const form = document.querySelector("#form_newtask");
@@ -108,11 +106,20 @@ window.addEventListener("load", () => {
       document.getElementById("inp_title").value=""; //reset the value of input 
    });
 });
-//--------------------------------Updating the storage "Note-ify"
+//------------------------------Updating the storage "Note-tify"
 function dataObjectUpdated (){
    localStorage.setItem("Note-ify_data", JSON.stringify(data));
 }
-//--------------------------------Creating divs and displaying task
+//------------------------------rendering the array in the local storage
+function renderTodoList() {
+   if (!data.tasks.length) return;
+
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      showTasks(value);
+   }
+ }
+//------------------------------Creating divs and displaying task
 function showTasks({Title: task, Date: dataValue}) {
    const tasks = document.querySelector("#task_list_today");//list_el
 
@@ -135,23 +142,13 @@ function showTasks({Title: task, Date: dataValue}) {
 
       tasks.appendChild(task_el);
 }
-//------------------------------rendering the array in the local storage
-function renderTodoList() {
-   if (!data.tasks.length) return;
-
-   for (var i = 0; i < data.tasks.length; i++) {
-      var value = data.tasks[i];
-      showTasks(value);
-   }
- }
-
-//-------------------------------FOR SHOWING TO THE DETAILS PANE
+//------------------------------Click task, show to details pane
 $(".task_item").click(function(){
    title = $(this).find(".title").html();
    date = $(this).find(".date").html();
    console.log(title);
    console.log(date);
 
-   $("#item_detail > .title").html(title);
-   $("#item_detail > .date").html(date);
+   $("#item_detail > .section > .title").html(title);
+   $("#item_detail > .section > .date").html(date);
 })

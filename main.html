@@ -23,33 +23,36 @@
             <div class="layer3_1" id="categories">
       <!--categories--------------------------------->
                <div class="label">Categories</div>
-               <div class="category_cont">
-                  <div class="category_item">
-                     <span class="title">Algorithms and Complexity</span>
-                     <span class="percent">17%</span>
-                     <div class="loading">
-                        <div class="progress"></div>
-                        <div class="bar"></div>
+                
+               <div class="section">
+                  <div class="category_cont">      <!--list of categories-->
+                     <div class="category_item">
+                        <span class="title">Daily</span>
+                        <span class="percent">17%</span>
+                        <div class="loading">
+                           <div class="progress"></div>
+                           <div class="bar"></div>
+                        </div>
                      </div>
-                  </div>
-                  <div class="category_item">
-                     <span class="title">Physics</span>
-                     <span class="percent">17%</span>
-                     <div class="loading">
-                        <div class="progress"></div>
-                        <div class="bar"></div>
+                     <div class="category_item">
+                        <span class="title">Physics</span>
+                        <span class="percent">17%</span>
+                        <div class="loading">
+                           <div class="progress"></div>
+                           <div class="bar"></div>
+                        </div>
                      </div>
                   </div>
                   <div id="btn_newtag" class="goto_float">
-                     <span><i class="fa-solid fa-plus"></i></span>
-                     <span>add new tag</span>
+                     <span><i class="fa-solid fa-plus"></i> add new tag</span>
                   </div>
                </div>
+               
             </div>
 
             <div class="layer3_2">
       <!--today------------------------------------>
-               <div class="section" id="today">
+               <div class="section">
                   <div class="label">Today</div>
 
                   <div id="task_list_today"> <!--list of tasks-->
@@ -61,26 +64,11 @@
                      </div> -->
 
                   </div>
-                  
-                  <div id="btn_newtask" class="goto_float">
-                     <span><i class="fa-solid fa-plus"></i></span>
-                     <span>add new task</span>
-                  </div>
+               </div>
+               <div id="btn_newtask" class="goto_float">
+                  <span><i class="fa-solid fa-plus"></i>add new task</span>
                </div>
 
-      <!--next------------------------------------->
-               <!-- <div class="section" id="next">
-                  <div class="label">Up next</div>
-                  <div class="task_item">
-                     <span class="fa-regular fa-circle-check"></span>
-                     <span class="title">sleep</span>
-                     <span class="date">Jun 19</span>
-                  </div>
-                  <div id="btn_newtask" class="goto_float">
-                     <span><i class="fa-solid fa-plus"></i></span>
-                     <span>add new task</span>
-                  </div>
-               </div> -->
             </div>
    <!--floating--------------------------------->
             <div class="floating" class="layer3">
@@ -88,18 +76,20 @@
       <!--new item--------------------------------->
                <div id="new_item" class="fade">
                   <form id="form_newtask">
-                     <label for="inp_title" class="formbuilder-text-label">Title</label>
-                     <input type="text" id="inp_title" title="input your task here" placeholder="what do you have planned?">
+                     <div class="section">
+                        <label for="inp_title" class="formbuilder-text-label">Title</label>
+                        <input type="text" id="inp_title" title="input your task here" placeholder="what do you have planned?">
 
-                     <label for="inp_date" class="formbuilder-date-label">Date Due</label>
-                     <input type="date" id="inp_date" title="select the due date">
+                        <label for="inp_date" class="formbuilder-date-label">Date Due</label>
+                        <input type="date" id="inp_date" title="select the due date">
 
-                     <label for="select-tag" class="formbuilder-select-label">Tag</label>
-                     <select name="select-tag" id="category">
-                        <option value="option-1" id="select-tag-0">Option 1</option>
-                        <option value="option-2" id="select-tag-1">Option 2</option>
-                        <option value="option-3" id="select-tag-2">Option 3</option>
-                     </select>
+                        <label for="select-tag" class="formbuilder-select-label">Tag</label>
+                        <select name="select-tag" id="category">
+                           <option value="option-1" id="select-tag-0">Option 1</option>
+                           <option value="option-2" id="select-tag-1">Option 2</option>
+                           <option value="option-3" id="select-tag-2">Option 3</option>
+                        </select>
+                     </div>
                      <button type="submit" id="btn_create">Create task</button>
                   </form>
 <!---back btn-->
@@ -107,28 +97,30 @@
                </div>
       <!--item detail--------------------------------->
                <div id="item_detail" class="fade">
-
-                  <div class="icons">
-                     <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
-                     <div class="delete"><i class="fa-regular fa-trash-can"></i></div>
+                  <div class="section">
+                     <div class="icons">
+                        <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
+                        <div class="delete"><i class="fa-regular fa-trash-can"></i></div>
+                     </div>
+                     
+                     <div class="title">feed the chonker</div>
+                     <div class="date">Friday, March 19, 2020</div>
+                     
+                     <div class="tag_group">
+                        <span class="folder"><i class="fa-regular fa-folder"></i></span>
+                        <span class="tag">daily</span>
+                     </div>
                   </div>
-                  
-                  <div class="title">feed the chonker</div>
-                  <div class="date">Friday, March 19, 2020</div>
-                  
-                  <div class="tag_group">
-                     <span class="folder"><i class="fa-regular fa-folder"></i></span>
-                     <span class="tag">daily</span>
-                  </div>
-                  
                   <button type="submit" id="btn_complete">Mark as completed</button>
 <!---back btn-->
                   <a class="back"><i class="fa-solid fa-angle-left"></i> Go back</a>
                </div>
       <!--new tag------------------------------------->
                <div id="new_tag" class="fade">
-                  <label for="inp_tag" class="formbuilder-text-label">Tag name</label>
-                  <input type="text" id="inp_tag" title="input your tag name">
+                  <div class="section">
+                     <label for="inp_tag" class="formbuilder-text-label">Tag name</label>
+                     <input type="text" id="inp_tag" title="input your tag name">
+                  </div>
                   <button type="submit" id="btn_create">Create tag</button>
                   <a class="back"><i class="fa-solid fa-angle-left"></i> Go back</a>
                </div>
