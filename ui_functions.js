@@ -60,12 +60,19 @@ $("#task_list_today").on("click", ".task_item", function(){
 //for details pane
 $(".task_item").click(function(){
    id = $(this).find(".id").html();
-   title = $(this).find(".title").html();
-   raw_date = $(this).find(".date").html();
-   
-   date = new Date(raw_date).toLocaleDateString("en-US");
+   title = data.tasks[id].Title;
+   date = data.tasks[id].Date;
+   category = data.tasks[id].Category;
+   _status = data.tasks[id].status;
    
    $("#item_detail > .section > .id").html(id);
    $("#item_detail > .section > .title").html(title);
    $("#item_detail > .section > .date").html(date);
+   $("#item_detail > .section > .tag_group > .tag").html(category);
+   if(_status) {
+      $("#btn_complete").html('Undo complete');
+      $("#item_detail").addClass("complete");
+   } else {
+      $("#item_detail").removeClass("complete");
+   }
 })

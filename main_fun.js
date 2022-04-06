@@ -26,10 +26,10 @@ window.addEventListener("load", () => {
       const task = title.value;
       const dateValue = dateInp.value;
       const status = false;
-      const idval = 0;
+      const idValue = data.tasks.length;
 
       const ItemStatus = CurrentStatus(status);
-      const idValue = ItemId(idval);
+      //const idValue = ItemId(idval);                   //*! use data.tasks.length nalang
 
       let dataValue = {
          id: idValue,
@@ -49,42 +49,53 @@ window.addEventListener("load", () => {
          return;
       }
 
-      location.reload();                                 //reload window
-      showTasks(dataValue);                              //show divs to browser
+      //showTasks(dataValue);                            //*! no need, browser will reload immediately
 
       data.tasks.push(dataValue);                        //adding to array
-      
       dataObjectUpdated();
       
       document.getElementById("inp_title").value="";     //reset the value of inputs 
       document.querySelector("#inp_date").value = "";
       document.getElementById("category").value = "";
+
+      location.reload();                                 //reload window
    });
 });
 
 //--------------------------------Creating divs and displaying single tasks
-function showTasks({Title: task, Date: dateValue, id: id}) {
+function showTasks({id: item_id, Title: item_title, Date: item_date, Category: item_category, status: item_status}) {
    const tasks = document.querySelector("#task_list_today");
 
    const task_el = document.createElement("div");
-      task_el.classList.add("task_item");
-
-         const task_id = document.createElement("span");
-         task_id.classList.add("id");
-         task_id.innerHTML = id;
-         task_el.appendChild(task_id);
+      if(!item_status) {
+         task_el.classList.add("task_item");
+      } else {
+         task_el.classList.add("task_item");
+         task_el.classList.add("completed");
+      }
 
          const task_circle = document.createElement("span");
          task_circle.classList.add("circle");
+         task_el.appendChild(task_circle);
+
+         const task_id = document.createElement("span");
+         task_id.classList.add("id");
+         task_id.innerHTML = item_id;
+         task_el.appendChild(task_id);
+
+         const task_status = document.createElement("span");
+         task_status.classList.add("status");
+         task_status.innerHTML = item_status;
+         task_el.appendChild(task_status);
 
          const task_title = document.createElement("span");
          task_title.classList.add("title");
-         task_title.innerHTML = task;
+         task_title.innerHTML = item_title;
          task_el.appendChild(task_title);
 
          const task_date = document.createElement("span");
          task_date.classList.add("date");
-            let dateObj = new Date(dateValue);
+            let dateObj = new Date(item_date);
             let FormattedDate = dateObj.toLocaleString("en-US", {
                month: "long", 
                day: "numeric",
@@ -107,26 +118,28 @@ function renderTodoList() {
 }
 
 
-//--------------------------------gives every task an id
-function ItemId(y){
-   for (var i = 0; i<= data.tasks.length; i++){
-      j = i + data.tasks.length
-      var y = j;
-      return y;
-   }
-}
+//--------------------------------gives every task an id  //*! just use the data.tasks.length
+// function ItemId(y){
+//    for (var i = 0; i<= data.tasks.length; i++){
+//       j = i + data.tasks.length
+//       var y = j;
+//       return y;
+//    }
+// }
 
 //-------------------------------CHECKS IF ITS COMPLETED    
 function CurrentStatus(x){
-   let complete = false;
-   if (x == complete){
-      return false;
-   } else {
-      return true;
-   }
+   (!x) ? false : true;
+
+   // let complete = false;
+   // if (x == complete){
+   //    return false;
+   // } else {
+   //    return true;
+   // }
 }
 
-//-------------------------------clicking the delete button
+//--------------------------------Delete an item
 $(".delete").click(function(){         
    id_new = $(this).parent().parent().find(".id").html();
 
@@ -139,7 +152,33 @@ $(".delete").click(function(){
          });
       }
    }
-   location.reload();
-   dataObjectUpdated();
-   //renderTodoList();
+   resetIds();
+   // location.reload();      //*! no need, these are done in the resetIds()
+   // dataObjectUpdated();    //*! no need, these are done in the resetIds()
+   //renderTodoList();        //*! remove this to remove the wonkiness
 })
+
+//--------------------------------Reset,fix the ids of the updated array
+function resetIds(){
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      if(value.id != i) {
+         data.tasks[i].id = i;
+      }
+   }
+   dataObjectUpdated();
+   location.reload();
+}
+
+//--------------------------------Complete task
+$(".circle").click(function() {
+   task_id = $(this).parent().find(".id").html();
+   task_status = data.tasks[task_id].status;
+      task_status = !task_status;
+   data.tasks[task_id].status = task_status;
+
+   dataObjectUpdated();
+   location.reload();
+})
+
+//--------------------------------Add new category
