@@ -8,20 +8,9 @@ var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.get
 console.log(data);
 renderTodoList();
 
-//--------------------------------Manually update the local storage "Note-ify"
-function dataObjectUpdated (){
-   localStorage.setItem("Note-ify_data", JSON.stringify(data));
-}
-
-//--------------------------------Get tasks from local storage and showTasks() to browser
-function renderTodoList() {
-   if (!data.tasks.length) return;
-
-   for (var i = 0; i < data.tasks.length; i++) {
-      var value = data.tasks[i];
-      showTasks(value);
-   }
-}
+editTask();
+//--------------------------------Manually update the local storage "all arrays"
+dataObjectUpdated();
 
 //--------------------------------Reset,fix the ids of the updated array
 function resetIds(){
@@ -144,6 +133,90 @@ $("#btn_create").click(function(e){
       location.reload();
    }
 })
+//----------------------------NEW from hobie creates the divs and displays the divs under Categories/Tags
+function showCategories({_id: tagId, Title: Newtag, PercentageValue: percent}){
+   const tags = document.querySelector("#MyCategories");
+
+   const tag_el = document.createElement('div');
+   tag_el.classList.add("category_item")
+
+   const tag_id = document.createElement("span");
+   tag_id.classList.add("id");
+   tag_el.appendChild(tag_id);
+
+   const tag_title = document.createElement("span");
+   tag_title.classList.add("title");
+   tag_title.innerHTML = Newtag;
+   tag_el.appendChild(tag_title);
+
+   const tag_percent = document.createElement("span");
+   tag_percent.classList.add("percent");
+   tag_percent.innerHTML = percent;
+   tag_el.appendChild(tag_percent);
+
+   const tag_loading = document.createElement("div");
+   tag_loading.classList.add("loading");
+   tag_el.appendChild(tag_loading);
+
+   const tag_progress = document.createElement("div");
+   tag_progress.classList.add("progress");
+   tag_loading.appendChild(tag_progress);
+
+   const tag_bar= document.createElement("div");
+   tag_bar.classList.add("bar");
+   tag_id.appendChild(tag_bar);
+
+   tags.appendChild(tag_el);
+
+}
+
+
+//--------------------------------Get tasks from local storage and showTasks() to browser
+
+//----------------------------NEW from hobie //renders the all the functions
+function renderTodoList() {
+renderData();
+renderCategories();
+renderSelectOptions()
+}
+//----------------------------NEW from hobie //renders the data.tasks
+function renderData(){
+   if (!data.tasks.length) return;
+
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      showTasks(value);
+   }
+}
+//----------------------------NEW from hobie //renders the data.Categories
+function renderCategories(){
+   if (!data.Categories.length) return;
+
+   for (var i = 0; i < data.Categories.length; i++) {
+      var value = data.Categories[i];
+      showCategories(value);
+   }
+}
+//----------------------------NEW from hobie //renders the select-tag options
+function renderSelectOptions(){
+ var select = document.getElementById("category");
+ data.Categories.forEach(({_id, Title}) => {
+   select.innerHTML += `<option value=${_id} id=${_id}>${Title}</option>`;
+ });
+
+
+}
+
+//--------------------------------Set the inputvalues and update the localstorage
+function dataObjectUpdated (){
+   localStorage.setItem("Note-ify_data", JSON.stringify(data));
+}
+
+//-------------------------------CHECKS IF ITS COMPLETED    
+function CurrentStatus(x){
+   (!x) ? false : true;
+
+}
 
 //--------------------------------Delete an item
 $(".delete").click(function(){         
@@ -174,4 +247,52 @@ $(".circle").click(function() {
    location.reload();
 })
 
-//! PINK MODE PLEASE (rosely) :D
+function CalculatePercentage(value){
+   //const bar = document.querySelector(".bar");
+   //const progress = document.querySelector(".progress");
+   //const x = document.querySelector(".percent")
+   
+   var complete = 17
+   var max = 20
+   
+   var calculation = (complete / max) * 100;
+   const percent = calculation + "%";
+   //progress = calculation;
+  //x = percent;
+   return percent;
+                        
+}
+
+function editTask(id){
+
+   let newEditItem = data.tasks.find((elem) => {
+      return elem.id === id
+   })
+   console.log(newEditItem);
+};
+
+//--------------------------------Add new category
+
+$("#btn_createtag").click(function(){               //-------NEW from hobie //Creating a new tag    
+   var percentValue;
+   const Newtag = $("#inp_tag").val();
+   const percent = CalculatePercentage(percentValue);
+   const tagId = $("#inp_tag").val();
+
+   if (!Newtag) {
+      alert("Please input a tag");
+      return;
+   }
+
+   data.Categories.push({ 
+      _id: tagId,
+      Title: Newtag,
+      PercentageValue: percent
+   });
+
+   dataObjectUpdated();
+   document.getElementById("inp_tag").value = " ";
+
+   location.reload();  
+})
+
