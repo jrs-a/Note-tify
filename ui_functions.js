@@ -23,7 +23,9 @@ $("#btn_newtask, .edit").click(function(){
    div_newItem.style.display = "grid";
    div_itemDetail.style.display = "none";
    div_newTag.style.display = "none";
+
 })
+
 
 $("#task_list_today > .task_item").click(function() {
    $("#item_detail").fadeIn();
@@ -43,7 +45,7 @@ $("#btn_newtag").click(function() {
    div_newTag.style.display = "grid";
 })
 
-$(".back, #btn_create, #btn_complete").click(function(){
+$(".back, #btn_create, #btn_complete, btn_edit").click(function(){
    document.querySelector("#anchor_home").scrollIntoView();
    $(".fade").fadeOut();
 })
