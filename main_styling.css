@@ -42,14 +42,24 @@ body {
 }
 
 #layer22 {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 80%;
 }
 
 .layer3_1 {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
   padding: 1rem;
 }
@@ -58,6 +68,10 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   gap: 1rem;
 }
 
@@ -147,21 +161,36 @@ body {
 }
 
 .layer3_2 {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
   padding: 1rem;
 }
 
 .layer3_2 .section {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
 }
 
 .layer3_2 #task_list_today {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -213,6 +242,30 @@ body {
   transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
 }
 
+.layer3_2 #task_list_today .task_item.completed {
+  color: rgba(0, 0, 0, 0.3);
+  background: #e5e5e7;
+  border: 3px solid #e5e5e7;
+}
+
+.layer3_2 #task_list_today .task_item.completed .title {
+  text-decoration: line-through;
+}
+
+.layer3_2 #task_list_today .task_item.completed .circle {
+  border: 2px solid #B1B1B3;
+  background: #B1B1B3;
+}
+
+.layer3_2 #task_list_today .task_item.completed .circle:hover {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.layer3_2 #task_list_today .task_item.completed:hover {
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  background: #e5e5e7;
+}
+
 .layer3_2 #btn_newtask {
   display: inline-block;
   padding: 0.8rem;
@@ -255,6 +308,20 @@ body {
   border-radius: 25px;
   background-color: white;
   padding: 50px 45px 45px 45px;
+}
+
+#item_detail.complete .section {
+  outline: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+#item_detail.complete button {
+  color: black;
+  background: #B1B1B3;
+  outline: 3px solid #B1B1B3;
+}
+
+#item_detail.complete button:hover {
+  outline: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 #item_detail {
@@ -409,6 +476,14 @@ a {
   display: none;
 }
 
+::-moz-selection {
+  background: #D0FBDF;
+}
+
+::selection {
+  background: #D0FBDF;
+}
+
 @media (min-width: 700px) {
   .layer2 #welcome {
     font-size: 46px;
@@ -505,6 +580,8 @@ a {
     margin: 4.3rem 3.5rem 0rem 4rem;
   }
   #layer22 {
+    display: -ms-grid;
+    display: grid;
     -ms-grid-columns: 2fr 3fr 5fr;
         grid-template-columns: 2fr 3fr 5fr;
     margin: 0rem 2rem;
