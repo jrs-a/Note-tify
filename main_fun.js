@@ -1,7 +1,7 @@
-//-------------------------------fetch arrays from local storage = initialize array variables
+//--------------------------------fetch arrays from local storage = initialize global array variables
 var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.getItem('Note-ify_data')):{
    tasks: [],
-   Categories: []
+   categories: []
 };
 
 //localStorage.clear();
@@ -13,54 +13,25 @@ function dataObjectUpdated (){
    localStorage.setItem("Note-ify_data", JSON.stringify(data));
 }
 
-//--------------------------------Get values from input and push to local storage
-window.addEventListener("load", () => {
-   const form = document.querySelector("#form_newtask");          //---getting the data from the input form
-   const title = document.querySelector("#inp_title");
-   const dateInp = document.querySelector("#inp_date");
-   const category = document.getElementById("category").value;
-   
-   form.addEventListener("submit", (e) => {                       //----adding the data to the storage
-      e.preventDefault();
+//--------------------------------Get tasks from local storage and showTasks() to browser
+function renderTodoList() {
+   if (!data.tasks.length) return;
 
-      const task = title.value;
-      const dateValue = dateInp.value;
-      const status = false;
-      const idValue = data.tasks.length;
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      showTasks(value);
+   }
+}
 
-      const ItemStatus = CurrentStatus(status);
-      //const idValue = ItemId(idval);                   //*! use data.tasks.length nalang
-
-      let dataValue = {
-         id: idValue,
-         Title: task, 
-         Date: dateValue,
-         Category: category, 
-         status: ItemStatus
-      };
-
-      if (!dateValue) {
-         alert("Please input a date");
-         return;
+//--------------------------------Reset,fix the ids of the updated array
+function resetIds(){
+   for (var i = 0; i < data.tasks.length; i++) {
+      var value = data.tasks[i];
+      if(value.id != i) {
+         data.tasks[i].id = i;
       }
-
-      if (!task) {
-         alert("Please input a task");
-         return;
-      }
-
-      //showTasks(dataValue);                            //*! no need, browser will reload immediately
-
-      data.tasks.push(dataValue);                        //adding to array
-      dataObjectUpdated();
-      
-      document.getElementById("inp_title").value="";     //reset the value of inputs 
-      document.querySelector("#inp_date").value = "";
-      document.getElementById("category").value = "";
-
-      location.reload();                                 //reload window
-   });
-});
+   }
+}
 
 //--------------------------------Creating divs and displaying single tasks
 function showTasks({id: item_id, Title: item_title, Date: item_date, Category: item_category, status: item_status}) {
@@ -107,37 +78,72 @@ function showTasks({id: item_id, Title: item_title, Date: item_date, Category: i
       tasks.appendChild(task_el);
 }
 
-//--------------------------------Get tasks from local storage and showTasks() to browser
-function renderTodoList() {
-   if (!data.tasks.length) return;
+//--------------------------------Add new task, Update task
+let isCreateTask = true;
 
-   for (var i = 0; i < data.tasks.length; i++) {
-      var value = data.tasks[i];
-      showTasks(value);
+$("#btn_newtask").click(function(){
+   isCreateTask = true;
+})
+$(".edit").click(function(){
+   isCreateTask = false;
+
+   task_id = $(this).parent().parent().find(".id").html();
+   task_title = data.tasks[task_id].Title;
+   task_date = data.tasks[task_id].Date;
+   task_category = data.tasks[task_id].Category;
+
+   $("#inp_title").val(task_title);
+   $("#category").val(task_category);
+   $("#inp_date").val(task_date);
+})
+
+$("#btn_create").click(function(e){
+   e.preventDefault();
+   
+   input_title = $("#inp_title").val();
+   input_date = $("#inp_date").val();
+   input_category = $("#category").val();
+   input_id = data.tasks.length;
+   input_status = false;
+
+   if (!input_date) {
+      alert("Please input a date");
+      return;
    }
-}
+   if (!input_title) {
+      alert("Please input a task");
+      return;
+   }
+   
+   if(isCreateTask) {
+      let dataValue = {
+         id: input_id,
+         Title: input_title, 
+         Date: input_date,
+         Category: input_category, 
+         status: input_status
+      };
 
+      data.tasks.push(dataValue);
+      dataObjectUpdated();
 
-//--------------------------------gives every task an id  //*! just use the data.tasks.length
-// function ItemId(y){
-//    for (var i = 0; i<= data.tasks.length; i++){
-//       j = i + data.tasks.length
-//       var y = j;
-//       return y;
-//    }
-// }
+      $("#inp_title").val();
+      $("#inp_date").val();
+      $("#category").val();
+      location.reload();
+   } else {
+      data.tasks[task_id].Title = input_title;
+      data.tasks[task_id].Date = input_date;
+      data.tasks[task_id].Category = input_category;
+      
+      dataObjectUpdated();
 
-//-------------------------------CHECKS IF ITS COMPLETED    
-function CurrentStatus(x){
-   (!x) ? false : true;
-
-   // let complete = false;
-   // if (x == complete){
-   //    return false;
-   // } else {
-   //    return true;
-   // }
-}
+      $("#inp_title").val();
+      $("#inp_date").val();
+      $("#category").val();
+      location.reload();
+   }
+})
 
 //--------------------------------Delete an item
 $(".delete").click(function(){         
@@ -153,22 +159,9 @@ $(".delete").click(function(){
       }
    }
    resetIds();
-   // location.reload();      //*! no need, these are done in the resetIds()
-   // dataObjectUpdated();    //*! no need, these are done in the resetIds()
-   //renderTodoList();        //*! remove this to remove the wonkiness
-})
-
-//--------------------------------Reset,fix the ids of the updated array
-function resetIds(){
-   for (var i = 0; i < data.tasks.length; i++) {
-      var value = data.tasks[i];
-      if(value.id != i) {
-         data.tasks[i].id = i;
-      }
-   }
    dataObjectUpdated();
    location.reload();
-}
+})
 
 //--------------------------------Complete task
 $(".circle").click(function() {
@@ -181,4 +174,4 @@ $(".circle").click(function() {
    location.reload();
 })
 
-//--------------------------------Add new category
+//! PINK MODE PLEASE (rosely) :D
