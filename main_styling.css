@@ -85,6 +85,10 @@ body {
   scroll-behavior: smooth;
 }
 
+.layer3_1 .category_cont .activeCategory {
+  background-color: #D0FBDF !important;
+}
+
 .layer3_1 .category_cont .category_item {
   min-width: 100px;
   padding: 1rem;
@@ -120,7 +124,7 @@ body {
 
 .layer3_1 .category_cont .category_item .bar {
   position: relative;
-  width: 0px;
+  width: 0%;
   height: 2px;
   background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.01)), to(rgba(255, 255, 255, 0.5)));
   background: linear-gradient(to right, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.5));
