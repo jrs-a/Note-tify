@@ -6,7 +6,6 @@ var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.get
 //--------------------------------Testing
 console.log(data);
 //localStorage.clear();
-//dataObjectUpdated();            //!remove if everything works fine
 //--------------------------------Display content onload
 renderTodoList();
 
@@ -47,6 +46,7 @@ function renderTodoList() {
          var value = data.categories[i];
          showCategories(value);
       }
+      percentCounter();
    }
    function renderSelectOptions(){
       if (data.categories == null) {return;}
@@ -108,10 +108,12 @@ function showTasks({id: item_id, Title: item_title, Date: item_date, Category: i
 
 //--------------------------------Creating divs and displaying single categories
 function showCategories({id: categ_id, title: categ_title, percent: categ_percent}){
+   
    const tags = document.querySelector(".category_cont");
 
       const tag_el = document.createElement('div');
-      tag_el.classList.add("category_item")
+      tag_el.classList.add("category_item");
+      tag_el.id = categ_id;
 
       const tag_id = document.createElement("span");
       tag_id.classList.add("id");
@@ -191,8 +193,7 @@ $("#btn_create").click(function(e){
 
       data.tasks.push(dataValue);
       percentCounter();
-      //dataObjectUpdated();
-
+      dataObjectUpdated();
       $("#inp_title").val();
       $("#inp_date").val();
       $("#category").val();
@@ -202,15 +203,13 @@ $("#btn_create").click(function(e){
       data.tasks[task_id].Date = input_date;
       data.tasks[task_id].Category = input_category;
       
+      percentCounter();
       dataObjectUpdated();
-
       $("#inp_title").val();
       $("#inp_date").val();
       $("#category").val();
       location.reload();
    }
-   percentCounter();
-   //percentCounter();
 })
 
 //--------------------------------Add new category 
@@ -221,6 +220,14 @@ $("#btn_createtag").click(function(){
    if (!input_title) {
       alert("Please input a tag");
       return;
+   }
+
+   for (var c = 0; c < data.Categories.length; c++) {
+      category = data.Categories[c].title;
+         if (input_title == category) {
+            alert("Tag is already existing!");
+            return;
+         } 
    }
 
    let categoryItem = {
@@ -236,8 +243,7 @@ $("#btn_createtag").click(function(){
    }
 
    data.categories.push(categoryItem);
-   //dataObjectUpdated();
-   percentCounter();
+   dataObjectUpdated();
    $("#inp_tag").val()
    location.reload();  
 })
@@ -257,7 +263,7 @@ $(".delete").click(function(){
    }
    resetIds();
    percentCounter();
-   //dataObjectUpdated();
+   dataObjectUpdated();
    location.reload();
 })
 
@@ -269,20 +275,11 @@ $(".circle, #btn_complete").click(function() {
    data.tasks[task_id].status = task_status;
 
    percentCounter();
-   //dataObjectUpdated();
-   //location.reload();
+   dataObjectUpdated();
+   location.reload();
 })
 
-/*
-   //display to dropwdown the array list
-   //fix scrolling
-   //get the category value of tasks
-   //search and count how many tasks in an array
-   //search and count how many completed in a task
-   display that in the bar
- */
-
-   percentCounter();
+//--------------------------------Sync progress bar and percentage
 function percentCounter() {
    all = 0;
    done = 0;
@@ -297,24 +294,27 @@ function percentCounter() {
             (task_status) ? done++ : null;
          } 
       }
-      //console.log(category + " - " + done + "," + all);
-      percentage = calcPercent(done, all);
-      data.categories[c].percent = percentage;
-      
-      val = $(".category_item").find(".title").html();
-      console.log(val);
+      if (all == 0) {
+         data.categories[c].percent = 0;
+      } else {
+         percentage = calcPercent(done, all);
+         data.categories[c].percent = percentage;
+      }
 
+      displayProgress(c);
       all = 0;
       done = 0;
    }
-   
-   
-   dataObjectUpdated();
-   //location.reload();
 }
+   function calcPercent(complete, max){
+      percent = ((complete / max) * 100);
+      percent = Math.trunc(percent);
+      return percent;                     
+   }
 
-function calcPercent(complete, max){
-   percent = ((complete / max) * 100);
-   percent = Math.trunc(percent);
-   return percent;                     
-}
+   function displayProgress(id) {
+      divId = "#" + id;   
+      divItem = $(".category_cont").children(divId).find(".bar");
+      width = data.categories[id].percent;
+      divItem.width(width + '%');
+   }
