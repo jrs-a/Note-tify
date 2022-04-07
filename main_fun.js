@@ -222,8 +222,8 @@ $("#btn_createtag").click(function(){
       return;
    }
 
-   for (var c = 0; c < data.Categories.length; c++) {
-      category = data.Categories[c].title;
+   for (var c = 0; c < data.categories.length; c++) {
+      category = data.categories[c].title;
          if (input_title == category) {
             alert("Tag is already existing!");
             return;
