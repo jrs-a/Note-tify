@@ -26,22 +26,24 @@
                 
                <div class="section">
                   <div class="category_cont">      <!--list of categories-->
-                     <div class="category_item">
+                     
+                     <!-- <div class="category_item">
                         <span class="title">Daily</span>
                         <span class="percent">17%</span>
                         <div class="loading">
                            <div class="progress"></div>
                            <div class="bar"></div>
                         </div>
-                     </div>
-                     <div class="category_item">
+                     </div> -->
+                     <!-- <div class="category_item">
                         <span class="title">Physics</span>
                         <span class="percent">17%</span>
                         <div class="loading">
                            <div class="progress"></div>
                            <div class="bar"></div>
                         </div>
-                     </div>
+                     </div> -->
+                  
                   </div>
                   <div id="btn_newtag" class="goto_float">
                      <span><i class="fa-solid fa-plus"></i> add new tag</span>
@@ -85,10 +87,12 @@
                         <input type="date" id="inp_date" title="select the due date">
 
                         <label for="select-tag" class="formbuilder-select-label">Tag</label>
-                        <select name="select-tag" id="category">
-                           <option value="option-1" id="select-tag-0">Option 1</option>
+                        <select name="select-tag" id="category" title="select tag here">
+                           
+                           <!-- <option value="option-1" id="select-tag-0">Option 1</option>
                            <option value="option-2" id="select-tag-1">Option 2</option>
-                           <option value="option-3" id="select-tag-2">Option 3</option>
+                           <option value="option-3" id="select-tag-2">Option 3</option> -->
+
                         </select>
                      </div>
                      <button type="submit" id="btn_create">Create task</button>
@@ -96,6 +100,7 @@
 <!---back btn-->
                   <a class="back"><i class="fa-solid fa-angle-left"></i> Go back</a>
                </div>
+
       <!--item detail--------------------------------->
                <div id="item_detail" class="fade">
                   <div class="section">
@@ -123,7 +128,7 @@
                      <label for="inp_tag" class="formbuilder-text-label">Tag name</label>
                      <input type="text" id="inp_tag" title="input your tag name">
                   </div>
-                  <button type="submit_tag" id="btn_create">Create tag</button>
+                  <button id="btn_createtag">Create tag</button>
                   <a class="back"><i class="fa-solid fa-angle-left"></i> Go back</a>
                </div>
             </div>
