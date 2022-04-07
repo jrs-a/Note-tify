@@ -15,9 +15,6 @@ $font-size-welcome: 46px;
 $font-size-welcomesmall: 45px;
 $font-size-task-title: 26px;
 $font-size-button: 16px;
-// $size-minwidth-taskitem: 200px;
-// $size-minwidth-category: 200px;
-// $size-maxwidth-category: 160px;
 $size-floatings: 360px;
 
 
@@ -95,6 +92,10 @@ body {
       //overflow-x: scroll;
       scroll-behavior: smooth;
       
+      .activeCategory {
+         background-color: $color-alt-light !important;
+      }
+
       .category_item {
          min-width: 100px;
          padding: 1rem;

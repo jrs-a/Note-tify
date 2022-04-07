@@ -72,36 +72,37 @@ function showTasks({id: item_id, Title: item_title, Date: item_date, Category: i
             task_el.classList.add("task_item");
             task_el.classList.add("completed");
          }
+         task_el.classList.add(item_category);
 
-      const task_circle = document.createElement("span");
-      task_circle.classList.add("circle");
-      task_el.appendChild(task_circle);
+         const task_circle = document.createElement("span");
+         task_circle.classList.add("circle");
+         task_el.appendChild(task_circle);
 
-      const task_id = document.createElement("span");
-      task_id.classList.add("id");
-      task_id.innerHTML = item_id;
-      task_el.appendChild(task_id);
+         const task_id = document.createElement("span");
+         task_id.classList.add("id");
+         task_id.innerHTML = item_id;
+         task_el.appendChild(task_id);
 
-      const task_status = document.createElement("span");
-      task_status.classList.add("status");
-      task_status.innerHTML = item_status;
-      task_el.appendChild(task_status);
+         const task_status = document.createElement("span");
+         task_status.classList.add("status");
+         task_status.innerHTML = item_status;
+         task_el.appendChild(task_status);
 
-      const task_title = document.createElement("span");
-      task_title.classList.add("title");
-      task_title.innerHTML = item_title;
-      task_el.appendChild(task_title);
+         const task_title = document.createElement("span");
+         task_title.classList.add("title");
+         task_title.innerHTML = item_title;
+         task_el.appendChild(task_title);
 
-      const task_date = document.createElement("span");
-      task_date.classList.add("date");
-         let dateObj = new Date(item_date);
-         let FormattedDate = dateObj.toLocaleString("en-US", {
-            month: "long", 
-            day: "numeric",
-            year: "numeric"
-         });
-      task_date.innerHTML = FormattedDate;
-      task_el.appendChild(task_date);
+         const task_date = document.createElement("span");
+         task_date.classList.add("date");
+            let dateObj = new Date(item_date);
+            let FormattedDate = dateObj.toLocaleString("en-US", {
+               month: "long", 
+               day: "numeric",
+               year: "numeric"
+            });
+         task_date.innerHTML = FormattedDate;
+         task_el.appendChild(task_date);
 
    tasks.appendChild(task_el);
 }
@@ -318,3 +319,47 @@ function percentCounter() {
       width = data.categories[id].percent;
       divItem.width(width + '%');
    }
+//--------------------------------Filter tasks by category
+selectedItem = null;
+sameClickCtr = 0;
+
+$(".category_item").click(function(){
+   if ($(this).find(".title").html() != selectedItem) {
+      $(".category_item").removeClass("activeCategory");
+      $(this).addClass("activeCategory");
+      filter_categ = $(this).find(".title").html();
+      showSome(filter_categ);
+   } else {
+      sameClickCtr++;
+      if(sameClickCtr > 1 && sameClickCtr%2 == 1) {
+         $(".category_item").removeClass("activeCategory");
+         $(this).addClass("activeCategory");
+         filter_categ = $(this).find(".title").html();
+         showSome(filter_categ);
+      } else {
+         $(this).removeClass("activeCategory");
+         showAll();
+      }
+   }
+
+   selectedItem = $(this).find(".title").html();
+
+   function showAll() {
+      for (var c = 0; c < data.categories.length; c++) {
+         current_item = data.categories[c].title;
+         $("#task_list_today").find("." + current_item).show();
+      }
+   }
+   
+   function showSome(filter) {
+      for (var c = 0; c < data.categories.length; c++) {
+         current_item = data.categories[c].title;
+
+         if (current_item != filter) {
+            $("#task_list_today").find("." + current_item).hide();
+         } else {
+            $("#task_list_today").find("." + current_item).show();
+         }
+      }
+   }
+})
