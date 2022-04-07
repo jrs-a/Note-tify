@@ -45,7 +45,7 @@ $("#btn_newtag").click(function() {
    div_newTag.style.display = "grid";
 })
 
-$(".back, #btn_create, #btn_complete, btn_edit").click(function(){
+$(".back, #btn_create, #btn_complete, #btn_createtag").click(function(){
    document.querySelector("#anchor_home").scrollIntoView();
    $(".fade").fadeOut();
 })

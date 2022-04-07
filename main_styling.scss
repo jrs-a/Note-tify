@@ -78,19 +78,21 @@ body {
    flex-direction: column;
    gap: 1rem;
    padding: 1rem;
+   
 
    .section {
       //background:gainsboro;
       display:flex;
       flex-direction: row;
       gap: 1rem;
+      overflow:auto;
    }
    .category_cont {  //---list of categories
       //background:paleturquoise;
       display: flex;
       gap: 1rem;
       padding:1px;
-      overflow-x: scroll;
+      //overflow-x: scroll;
       scroll-behavior: smooth;
       
       .category_item {
@@ -120,8 +122,8 @@ body {
             box-shadow: 2px 2px 1px 0px $color-mode-gray;
          }
          .bar {
-            position: absolute;
-            width: 1%;
+            position: relative;
+            width: 0px;
             height: 2px;
             background: linear-gradient(to right, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.5));
             background: $color-mode-opposite;
