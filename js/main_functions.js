@@ -2,6 +2,7 @@
 var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.getItem('Note-ify_data')):{
    "tasks": [],
    "categories": [],
+   "theme": [],
 };
 //--------------------------------Testing
 console.log(data);
@@ -223,8 +224,8 @@ $("#btn_createtag").click(function(){
       return;
    }
 
-   for (var c = 0; c < data.Categories.length; c++) {
-      category = data.Categories[c].title;
+   for (var c = 0; c < data.categories.length; c++) {
+      category = data.categories[c].title;
          if (input_title == category) {
             alert("Tag is already existing!");
             return;
@@ -363,3 +364,57 @@ $(".category_item").click(function(){
       }
    }
 })
+//--------------------------------Color themes
+$("#rosely").click(function(){
+   $('body').addClass("rosely");
+   $('body').removeClass("default");
+
+   let selectedTheme = {
+      theme: "rosely",
+   };
+   data.theme = [];
+   data.theme.push(selectedTheme);
+   dataObjectUpdated();
+   location.reload();
+})
+$("#light").click(function(){
+   $('body').removeClass("rosely");
+
+   let selectedTheme = {
+      theme: "default",
+   };
+   data.theme = [];
+   data.theme.push(selectedTheme);
+   dataObjectUpdated();
+   location.reload();
+})
+
+setTheme();
+function setTheme() {
+   if (data.theme[0].theme == "rosely") {
+      $('body').addClass("rosely");
+      $('body').removeClass("default");
+   } 
+   else if (data.theme[0].theme == "default"){
+      return;
+   }
+}
+
+// upload website(live)
+// organize folder
+// uninstall node modules
+// 	https://dev.to/nirazanbasnet/delete-nodemodules-like-a-pro-1727
+// 	eslint
+
+// -------------------
+// []fix folder
+// []upload live
+
+// []SA review
+// [x]pink theme, new pink theme, dark theme
+// 	put to array
+// 	try to put modes onclick (put in body?)
+// []sort by date
+// 	find sort
+// 	new array/sort the new one
+// 	reset ids
