@@ -23,7 +23,7 @@ html {
    min-height:100% !important;
 }
 body {
-   background:url(/assets/background.png) no-repeat center center fixed;
+   background:url(/public/assets/background.png) no-repeat center center fixed;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    -o-background-size: cover;
@@ -36,7 +36,7 @@ body {
    min-height:100% !important;
 
    &.rosely {
-      background: url(/assets/bg_rosely.png) no-repeat center center fixed;
+      background: url(/public/assets/bg_rosely.png) no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
