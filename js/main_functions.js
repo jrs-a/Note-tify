@@ -399,22 +399,3 @@ function setTheme() {
       return;
    }
 }
-
-// upload website(live)
-// organize folder
-// uninstall node modules
-// 	https://dev.to/nirazanbasnet/delete-nodemodules-like-a-pro-1727
-// 	eslint
-
-// -------------------
-// []fix folder
-// []upload live
-
-// []SA review
-// [x]pink theme, new pink theme, dark theme
-// 	put to array
-// 	try to put modes onclick (put in body?)
-// []sort by date
-// 	find sort
-// 	new array/sort the new one
-// 	reset ids

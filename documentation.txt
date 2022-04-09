@@ -1,0 +1,40 @@
+Currently working on:
+- upload to live server
+- connect to firebase
+
+Issues:
+
+
+Changelog:
+v8.1
+    - organized folders
+    - documentation file
+v8.0
+    - responsiveness v3
+    - pink mode
+v7.3
+    - filter by category
+v7.2
+    - sync progress bar and percent
+v7.1
+    - create category
+    - get and display percent value
+v7
+    - arrange and clean functions
+v6
+    - create task v2
+    - edit task
+v5
+    - complete task
+    - reset id
+v4
+    - delete task
+v3.1
+    - responsiveness v2
+v3
+    - save task to storage
+    - render task from storage to browser
+v2
+    - show item detail/new task/new category on click with fade :D
+v1
+    - render task directly from input
