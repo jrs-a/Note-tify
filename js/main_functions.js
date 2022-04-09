@@ -1,3 +1,5 @@
+import { db, addDoc, collection, deleteDoc, doc } from "./Firebase.js";
+
 //--------------------------------Initialize global arrays from storage
 var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.getItem('Note-ify_data')):{
    "tasks": [],
@@ -5,11 +7,10 @@ var data = (localStorage.getItem('Note-ify_data')) ? JSON.parse(localStorage.get
 };
 //--------------------------------Testing
 console.log(data);
+//console.log(db);
 //localStorage.clear();
 //--------------------------------Display content onload
 renderTodoList();
-
-
 
 
 //--------------------------------Set the input values and update the localstorage
@@ -50,11 +51,11 @@ function renderTodoList() {
    }
    function renderSelectOptions(){
       if (data.categories == null) {return;}
-      select = document.querySelector("#category");
+      var select = document.querySelector("#category");
       
       for (var i = 0; i < data.categories.length; i++) {
          var value = data.categories[i].title;
-         option = document.createElement("option");
+         const option = document.createElement("option");
          option.value = value;
          option.innerHTML = value;
          select.appendChild(option);
@@ -66,13 +67,14 @@ function showTasks({id: item_id, Title: item_title, Date: item_date, Category: i
    const tasks = document.querySelector("#task_list_today");
 
       const task_el = document.createElement("div");
+      //task_el.setAttribute                       //?don't need this?, app runs ok when commented out
          if(!item_status) {
             task_el.classList.add("task_item");
          } else {
             task_el.classList.add("task_item");
             task_el.classList.add("completed");
          }
-         task_el.classList.add(item_category);
+         task_el.classList.add(item_category); //!Cannot add a new task under another tag if the tags has a white space. Ex "Project A" DOM TOKEN does not accept classes that have white space in them.
 
          const task_circle = document.createElement("span");
          task_circle.classList.add("circle");
@@ -155,24 +157,24 @@ $("#btn_newtask").click(function(){
 $(".edit").click(function(){
    isCreateTask = false;
 
-   task_id = $(this).parent().parent().find(".id").html();
-   task_title = data.tasks[task_id].Title;
-   task_date = data.tasks[task_id].Date;
-   task_category = data.tasks[task_id].Category;
+   const task_id = $(this).parent().parent().find(".id").html();
+   const task_title = data.tasks[task_id].Title;
+   const task_date = data.tasks[task_id].Date;
+   const task_category = data.tasks[task_id].Category;
 
    $("#inp_title").val(task_title);
    $("#category").val(task_category);
    $("#inp_date").val(task_date);
 })
 
-$("#btn_create").click(function(e){
+$("#btn_create").click(function (e){
    e.preventDefault();
-   
-   input_title = $("#inp_title").val();
-   input_date = $("#inp_date").val();
-   input_category = $("#category").val();
-   input_id = (!data.tasks) ? 0 : data.tasks.length;
-   input_status = false;
+   const task_id = $(this).parent().parent().find(".id").html();
+   const input_title = $("#inp_title").val();
+   const input_date = $("#inp_date").val();
+   const input_category = $("#category").val();
+   const input_id = (!data.tasks) ? 0 : data.tasks.length;
+   const input_status = false;
 
    if (!input_date) {
       alert("Please input a date");
@@ -191,18 +193,19 @@ $("#btn_create").click(function(e){
          Category: input_category, 
          status: input_status
       };
-
       data.tasks.push(dataValue);
       percentCounter();
       dataObjectUpdated();
+      addNewTask(input_title, input_category, input_date, input_id, input_status); 
       $("#inp_title").val();
       $("#inp_date").val();
       $("#category").val();
-      location.reload();
    } else {
-      data.tasks[task_id].Title = input_title;
-      data.tasks[task_id].Date = input_date;
-      data.tasks[task_id].Category = input_category;
+
+      //! Any way u can fix this part?
+      data.tasks[task_id].Title = input_title;       //!  They dont exist daw. it error when i changed the type from text/Javascript to module
+      data.tasks[task_id].Date = input_date;         //!
+      data.tasks[task_id].Category = input_category; //!
       
       percentCounter();
       dataObjectUpdated();
@@ -215,16 +218,18 @@ $("#btn_create").click(function(e){
 
 //--------------------------------Add new category 
 $("#btn_createtag").click(function(){               
-   input_id = (!data.categories) ? 0 : data.categories.length;
-   input_title = $("#inp_tag").val();
+   const input_id = (!data.categories) ? 0 : data.categories.length;
+   const input_title = $("#inp_tag").val();
 
    if (!input_title) {
       alert("Please input a tag");
       return;
    }
 
-   for (var c = 0; c < data.Categories.length; c++) {
-      category = data.Categories[c].title;
+   console.log(input_title);
+
+   for (var c = 0; c < data.categories.length; c++) {
+     let category = data.categories[c].title;
          if (input_title == category) {
             alert("Tag is already existing!");
             return;
@@ -236,7 +241,6 @@ $("#btn_createtag").click(function(){
       title: input_title,
       percent: 0
    };
-
    console.log(categoryItem);
 
    if(!Array.isArray(data.categories)) {
@@ -245,13 +249,13 @@ $("#btn_createtag").click(function(){
 
    data.categories.push(categoryItem);
    dataObjectUpdated();
+   addNewTag(input_id, input_title)
    $("#inp_tag").val()
-   location.reload();  
 })
 
 //--------------------------------Delete an item
 $(".delete").click(function(){         
-   id_new = $(this).parent().parent().find(".id").html();
+   const id_new = $(this).parent().parent().find(".id").html();
 
    for (var i = 0; i < data.tasks.length; i++) {
       var value = data.tasks[i];
@@ -270,8 +274,8 @@ $(".delete").click(function(){
 
 //--------------------------------Complete task
 $(".circle, #btn_complete").click(function() {
-   task_id = $(this).parent().find(".id").html();
-   task_status = data.tasks[task_id].status;
+  const task_id = $(this).parent().find(".id").html();
+  var task_status = data.tasks[task_id].status;
       task_status = !task_status;
    data.tasks[task_id].status = task_status;
 
@@ -279,17 +283,42 @@ $(".circle, #btn_complete").click(function() {
    dataObjectUpdated();
    location.reload();
 })
+const addNewTask = async (title, category, date, id, status) => {
+   const collectionRef = collection(db, "Tasks");
+   const payload = {
+      Title: title,
+      Category: category,
+      Date:date,
+      Id: id,
+      Status: status
+
+   };
+
+   await addDoc(collectionRef, payload);
+   location.reload();
+};
+
+const addNewTag = async(id, title) => {
+   const collectionRef = collection(db, "Categories");
+   const payload = {
+      ID: id,
+      Title: title,
+   };
+
+   await addDoc(collectionRef, payload);
+   location.reload();
+};
 
 //--------------------------------Sync progress bar and percentage
 function percentCounter() {
-   all = 0;
-   done = 0;
-   
+   var all = 0;
+   var done = 0;
+
    for (var c = 0; c < data.categories.length; c++) {
-      category = data.categories[c].title;
+      const category = data.categories[c].title;
       for (var i = 0; i < data.tasks.length; i++) {
-         task = data.tasks[i].Category;
-         task_status = data.tasks[i].status;
+         const task = data.tasks[i].Category;
+         const task_status = data.tasks[i].status;
          if (task == category) {
             all++;
             (task_status) ? done++ : null;
@@ -298,7 +327,7 @@ function percentCounter() {
       if (all == 0) {
          data.categories[c].percent = 0;
       } else {
-         percentage = calcPercent(done, all);
+         var percentage = calcPercent(done, all);
          data.categories[c].percent = percentage;
       }
 
@@ -308,33 +337,33 @@ function percentCounter() {
    }
 }
    function calcPercent(complete, max){
-      percent = ((complete / max) * 100);
+      var percent = ((complete / max) * 100);
       percent = Math.trunc(percent);
       return percent;                     
    }
 
    function displayProgress(id) {
-      divId = "#" + id;   
-      divItem = $(".category_cont").children(divId).find(".bar");
-      width = data.categories[id].percent;
+      const divId = "#" + id;   
+      const divItem = $(".category_cont").children(divId).find(".bar");
+      const width = data.categories[id].percent;
       divItem.width(width + '%');
    }
 //--------------------------------Filter tasks by category
-selectedItem = null;
-sameClickCtr = 0;
+var selectedItem = null;
+var sameClickCtr = 0;
 
 $(".category_item").click(function(){
    if ($(this).find(".title").html() != selectedItem) {
       $(".category_item").removeClass("activeCategory");
       $(this).addClass("activeCategory");
-      filter_categ = $(this).find(".title").html();
+     const filter_categ = $(this).find(".title").html();
       showSome(filter_categ);
    } else {
       sameClickCtr++;
       if(sameClickCtr > 1 && sameClickCtr%2 == 1) {
          $(".category_item").removeClass("activeCategory");
          $(this).addClass("activeCategory");
-         filter_categ = $(this).find(".title").html();
+         const filter_categ = $(this).find(".title").html();
          showSome(filter_categ);
       } else {
          $(this).removeClass("activeCategory");
@@ -346,14 +375,14 @@ $(".category_item").click(function(){
 
    function showAll() {
       for (var c = 0; c < data.categories.length; c++) {
-         current_item = data.categories[c].title;
+       const current_item = data.categories[c].title;
          $("#task_list_today").find("." + current_item).show();
       }
    }
    
    function showSome(filter) {
       for (var c = 0; c < data.categories.length; c++) {
-         current_item = data.categories[c].title;
+         const current_item = data.categories[c].title;
 
          if (current_item != filter) {
             $("#task_list_today").find("." + current_item).hide();
@@ -363,3 +392,5 @@ $(".category_item").click(function(){
       }
    }
 })
+
+export {data};

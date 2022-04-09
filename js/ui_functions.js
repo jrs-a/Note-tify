@@ -1,3 +1,4 @@
+import { data } from "./main_functions.js";
 // -----------------------------Homepage Date
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December",];
 const week = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",];
@@ -61,11 +62,11 @@ $("#task_list_today").on("click", ".task_item", function(){
 
 //for details pane
 $(".task_item").click(function(){
-   id = $(this).find(".id").html();
-   title = data.tasks[id].Title;
-   date = data.tasks[id].Date;
-   category = data.tasks[id].Category;
-   _status = data.tasks[id].status;
+  const id = $(this).find(".id").html();
+  const title = data.tasks[id].Title;
+  const date = data.tasks[id].Date;
+  const category = data.tasks[id].Category;
+  const _status = data.tasks[id].status;
    
    $("#item_detail > .section > .id").html(id);
    $("#item_detail > .section > .title").html(title);
