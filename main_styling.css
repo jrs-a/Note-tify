@@ -14,6 +14,42 @@ body {
   min-height: 100% !important;
 }
 
+body.rosely {
+  background: url(assets/bg_rosely.png) no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.rosely #welcome #day {
+  color: #EC809E;
+}
+
+body.rosely .layer3_1 .category_cont .activeCategory {
+  background-color: #F4DEDE !important;
+}
+
+body.rosely .layer3_2 #task_list_today .task_item .circle:hover {
+  border: 2px solid #EC809E;
+}
+
+body.rosely .layer3_2 #task_list_today .task_item:hover {
+  border: 3px solid #EC809E;
+  background: #F4DEDE;
+}
+
+body.rosely button:hover {
+  background-color: #EC809E;
+  -webkit-box-shadow: rgba(236, 128, 158, 0.4) 5px 5px, rgba(236, 128, 158, 0.3) 10px 10px, rgba(236, 128, 158, 0.2) 15px 15px, rgba(236, 128, 158, 0.1) 20px 20px, rgba(236, 128, 158, 0.05) 25px 25px;
+          box-shadow: rgba(236, 128, 158, 0.4) 5px 5px, rgba(236, 128, 158, 0.3) 10px 10px, rgba(236, 128, 158, 0.2) 15px 15px, rgba(236, 128, 158, 0.1) 20px 20px, rgba(236, 128, 158, 0.05) 25px 25px;
+}
+
+body.rosely ::-moz-selection {
+  background: #F4DEDE;
+}
+
+body.rosely ::selection {
+  background: #F4DEDE;
+}
+
 .layer1 {
   max-width: 1920px;
   margin: 0 auto;
@@ -471,6 +507,54 @@ button:hover {
   text-decoration: underline;
 }
 
+#floating {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 40px;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 0px 2px;
+}
+
+#floating:hover {
+  height: 120px;
+  transition: border 0.3s ease, height 0.3s ease;
+  -o-transition: border 0.3s ease, height 0.3s ease;
+  -moz-transition: border 0.3s ease, height 0.3s ease;
+  -webkit-transition: border 0.3s ease, height 0.3s ease;
+}
+
+#floating .el {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  border-radius: 16px;
+}
+
+#floating #def {
+  background: #B1B1B3;
+}
+
+#floating #light {
+  background: #D0FBDF;
+  border: 1px solid #D0FBDF;
+}
+
+#floating #rosely {
+  background: mistyrose;
+  border: 1px solid mistyrose;
+}
+
+#floating #rosely:hover, #floating #light:hover {
+  border: 1px solid black;
+  transition: border 0.3s ease;
+  -o-transition: border 0.3s ease;
+  -moz-transition: border 0.3s ease;
+  -webkit-transition: border 0.3s ease;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -497,6 +581,8 @@ a {
     display: inline-block;
   }
   #layer22 {
+    display: -ms-grid;
+    display: grid;
     -ms-grid-columns: 1.2fr 2fr;
         grid-template-columns: 1.2fr 2fr;
   }
@@ -525,7 +611,7 @@ a {
   }
   .layer3_2 {
     overflow: auto;
-    padding: 1rem 2.5rem 0rem 1rem;
+    padding: 1rem 2.5rem 0rem 2.5rem;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -564,12 +650,18 @@ a {
     display: inline-block;
   }
   #layer22 {
-    -ms-grid-columns: 1fr 2.5fr 3.5fr;
-        grid-template-columns: 1fr 2.5fr 3.5fr;
+    -ms-grid-columns: 1fr 2.2fr 3fr;
+        grid-template-columns: 1fr 2.2fr 3fr;
+  }
+  .layer3_1 {
+    padding: 1rem 0rem 0rem 3.5rem;
+  }
+  .layer3_1 .category_cont .category_item, .layer3_1 .category_cont #btn_newtag {
+    min-width: none;
   }
   .layer3_2 {
     overflow: auto;
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 1rem 0rem 0rem 1rem;
   }
   .floating {
     position: static;
@@ -579,22 +671,19 @@ a {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1000px) {
   .layer2 #welcome {
     margin: 4.3rem 3.5rem 0rem 4rem;
   }
   #layer22 {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 2fr 3fr 5fr;
-        grid-template-columns: 2fr 3fr 5fr;
+    -ms-grid-columns: 2.2fr 3fr 4.5fr;
+        grid-template-columns: 2.2fr 3fr 4.5fr;
     margin: 0rem 2rem;
   }
   .layer3_1 {
-    padding: 1rem 1rem 0rem 3.5rem;
-  }
-  .layer3_1 .category_cont .category_item, .layer3_1 .category_cont #btn_newtag {
-    min-width: 250px;
+    padding: 1rem 0.5rem 0rem 3.5rem;
   }
   .layer3_1 .category_cont .category_item .title, .layer3_1 .category_cont #btn_newtag .title {
     display: inline;
@@ -609,7 +698,7 @@ a {
     margin-right: 0px;
   }
   .layer3_2 {
-    padding: 1rem 2.5rem 0rem 1rem;
+    padding: 1rem 2rem 0rem 1rem;
   }
   #new_item, #item_detail, #new_tag {
     width: 360px;
