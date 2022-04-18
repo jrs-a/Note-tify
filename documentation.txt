@@ -1,11 +1,12 @@
 Currently working on:
-- upload to live server
 - connect to firebase
 
 Issues:
-
+- space in tags/categories
 
 Changelog:
+v8.2
+    - deployed to firebase hosting
 v8.1
     - organized folders
     - documentation file

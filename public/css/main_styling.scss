@@ -23,7 +23,7 @@ html {
    min-height:100% !important;
 }
 body {
-   background:url(/public/assets/background.png) no-repeat center center fixed;
+   background:url(../assets/background.png) no-repeat center center fixed;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    -o-background-size: cover;
@@ -36,7 +36,7 @@ body {
    min-height:100% !important;
 
    &.rosely {
-      background: url(/public/assets/bg_rosely.png) no-repeat center center fixed;
+      background: url(../assets/bg_rosely.png) no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -83,7 +83,7 @@ body {
    max-width: 1920px;
    margin: 0 auto;
    //display: grid;  //**---DO NOT EVER DISPLAY GRID LAYER 1 IT WILL FUCK UP SHIT
-   
+
    min-height:95% !important;
    height: 95%;
 }
@@ -92,7 +92,7 @@ body {
    //gap: 1rem;      //**---no need, the layer 3s have their padidngs alr
    #welcome {
       //background:palegoldenrod;
-      padding: 1rem;   
+      padding: 1rem;
       margin-top: 1.75rem;
 
       font-size: $font-size-welcomesmall;
@@ -116,7 +116,7 @@ body {
    flex-direction: column;
    gap: 1rem;
    padding: 1rem;
-   
+
 
    .section {
       //background:gainsboro;
@@ -132,7 +132,7 @@ body {
       padding:1px;
       //overflow-x: scroll;
       scroll-behavior: smooth;
-      
+
       .activeCategory {
          background-color: $color-alt-light !important;
       }
@@ -181,7 +181,7 @@ body {
             transition: box-shadow 0.3s ease, outline 0.3s ease;
          }
       }
-      
+
    }
    #btn_newtag {
       min-width: 100px;
@@ -191,10 +191,10 @@ body {
       border-radius: 16px;
       font-size: $font-size-body;
       text-align: center;
-      
+
       display: grid;
       align-items: center;
-      //justify-items: center; 
+      //justify-items: center;
 
       &:hover {
          background: $color-mode-darkgray;
@@ -206,7 +206,7 @@ body {
       }
    }
 }
-.layer3_2 {          //TASK ITEMS - state1:columns state2:rows //less forgiving (3 states) - 
+.layer3_2 {          //TASK ITEMS - state1:columns state2:rows //less forgiving (3 states) -
    //background:plum;
    display: flex;
    flex-direction: column;
@@ -259,7 +259,7 @@ body {
                transition: border 0.2s ease, background 0.2s ease;
             }
          }
-   
+
          &:hover {
             background: $color-alt-light;
             border: 3px solid $color-alt-dark;
@@ -290,14 +290,14 @@ body {
             background: $color-mode-flatlightgray;
          }
       }
-      
+
    }
    #btn_newtask {
       display: inline-block;
       padding: 0.8rem;
       line-height: 1.5;
       vertical-align: middle;
-      
+
       background: $color-mode-gray;
       border-radius: 16px;
       font-size: $font-size-body;
@@ -334,7 +334,7 @@ body {
    .section {
       border-radius: 25px;
       background-color: $color-mode-bg;
-      padding: 50px 45px 45px 45px;   
+      padding: 50px 45px 45px 45px;
    }
 }
 
@@ -359,7 +359,7 @@ body {
    .section {
       border-radius: 25px;
       background-color: $color-mode-bg;
-      padding: 40px 40px 55px 40px;   
+      padding: 40px 40px 55px 40px;
    }
    .icons {
       display: flex;
@@ -404,14 +404,14 @@ body {
    .section {
       border-radius: 25px;
       background-color: $color-mode-bg;
-      padding: 50px 45px 45px 45px;   
+      padding: 50px 45px 45px 45px;
    }
 }
 
 input, select {
    appearance: none;
    width: 92%;
-   
+
    padding: 0.7rem;
    margin-bottom: 20px;
    margin-top: 5px;
@@ -438,7 +438,7 @@ button {
    //bottom:0px;
    left: 50%;
    transform: translateX(-50%);
-   
+
    outline: 3px solid $color-mode-opposite;
    background-color: $color-mode-opposite;
    color: $color-mode-bg;
@@ -513,7 +513,7 @@ button {
       border: 1px solid #D0FBDF;
    }
    #rosely {
-      background: mistyrose; 
+      background: mistyrose;
       border: 1px solid mistyrose;
    }
    #rosely, #light {
@@ -548,7 +548,7 @@ a {
             display:inline-block;
          }
       }
-      
+
    }
    #layer22 {
       display:grid;
@@ -571,7 +571,7 @@ a {
       padding:1rem 2.5rem 0rem 2.5rem;
       display: flex;
       flex-direction: column;
-      .section {      
+      .section {
          display: flex;
          flex-direction: column;
          overflow: auto;
