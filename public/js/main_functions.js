@@ -124,7 +124,8 @@ function showCategories({id: categ_id, title: categ_title, percent: categ_percen
 
       const tag_title = document.createElement("span");
       tag_title.classList.add("title");
-      tag_title.innerHTML = categ_title;
+         undashed = categ_title.replaceAll('-', ' ');
+      tag_title.innerHTML = undashed;
       tag_el.appendChild(tag_title);
 
       const tag_percent = document.createElement("span");
@@ -232,9 +233,11 @@ $("#btn_createtag").click(function(){
          } 
    }
 
+   dashed = input_title.replaceAll(' ', '-');
+
    let categoryItem = {
       id: input_id,
-      title: input_title,
+      title: dashed,
       percent: 0
    };
 
@@ -246,7 +249,7 @@ $("#btn_createtag").click(function(){
 
    data.categories.push(categoryItem);
    dataObjectUpdated();
-   $("#inp_tag").val()
+   $("#inp_tag").val();
    location.reload();  
 })
 
