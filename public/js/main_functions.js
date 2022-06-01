@@ -165,6 +165,7 @@ $(".edit").click(function(){
    $("#inp_title").val(task_title);
    $("#category").val(task_category);
    $("#inp_date").val(task_date);
+   $("#btn_create").html('Confirm changes');
 })
 
 $("#btn_create").click(function(e){
@@ -355,10 +356,12 @@ $(".category_item").click(function(){
       }
    }
    
-   function showSome(filter) {
+   function showSome(search) {
+      filter = search.replaceAll(' ', '-');
+      console.log("we are looking for: " + filter);
+
       for (var c = 0; c < data.categories.length; c++) {
          current_item = data.categories[c].title;
-
          if (current_item != filter) {
             $("#task_list_today").find("." + current_item).hide();
          } else {
