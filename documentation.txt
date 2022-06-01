@@ -4,6 +4,8 @@ Currently working on:
 Issues:
 
 Changelog:
+v9.0.11
+    - default category tasks not hiding when filtering mode
 v9.0.1
     - change icon
     - fix filter not working because dash is not removed also in display

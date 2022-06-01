@@ -354,13 +354,13 @@ $(".category_item").click(function(){
          current_item = data.categories[c].title;
          $("#task_list_today").find("." + current_item).show();
       }
+      $("#task_list_today").find(".default").show();
    }
    
    function showSome(search) {
       filter = search.replaceAll(' ', '-');
-      console.log("we are looking for: " + filter);
 
-      for (var c = 0; c < data.categories.length; c++) {
+      for (var c = 0; c < data.categories.length; c++) {      
          current_item = data.categories[c].title;
          if (current_item != filter) {
             $("#task_list_today").find("." + current_item).hide();
@@ -368,6 +368,7 @@ $(".category_item").click(function(){
             $("#task_list_today").find("." + current_item).show();
          }
       }
+      $("#task_list_today").find(".default").hide();
    }
 })
 //--------------------------------Color themes
