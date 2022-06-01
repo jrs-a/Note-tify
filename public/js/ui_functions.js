@@ -64,7 +64,8 @@ $(".task_item").click(function(){
    id = $(this).find(".id").html();
    title = data.tasks[id].Title;
    date = data.tasks[id].Date;
-   category = data.tasks[id].Category;
+   dashed = data.tasks[id].Category;
+      category = dashed.replaceAll('-', ' ');
    _status = data.tasks[id].status;
    
    $("#item_detail > .section > .id").html(id);

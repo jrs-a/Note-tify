@@ -4,6 +4,9 @@ Currently working on:
 Issues:
 
 Changelog:
+v9.0.1
+    - change icon
+    - fix filter not working because dash is not removed also in display
 v9.0
     - space in tags/categories
 v8.2
