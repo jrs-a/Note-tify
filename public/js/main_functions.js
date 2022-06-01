@@ -359,16 +359,12 @@ $(".category_item").click(function(){
    
    function showSome(search) {
       filter = search.replaceAll(' ', '-');
-      
+
       for (var c = 0; c < data.categories.length; c++) {      
          current_item = data.categories[c].title;
-         console.log("current categ scanning = " + current_item);
-         
          if (current_item != filter) {
-            console.log("must hide");
             $("#task_list_today").find("." + current_item).hide();
          } else {
-            console.log("will show");
             $("#task_list_today").find("." + current_item).show();
          }
       }
